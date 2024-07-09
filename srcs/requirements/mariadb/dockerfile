@@ -3,6 +3,9 @@ FROM debian:buster
 RUN apt-get update && apt-get install -y mariadb-server
 
 COPY ./tools/my.cnf ./etc/mysql/mariadb.conf.d/
+
+RUN chmod 644 ./etc/mysql/mariadb.conf.d/my.cnf
+
 COPY ./tools/entrypoint.sh /
 
 CMD ["/entrypoint.sh"]

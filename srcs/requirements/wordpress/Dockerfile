@@ -1,17 +1,8 @@
-# Use an official WordPress image as base
-FROM wordpress:latest
+FROM debian:buster
 
-# Set the working directory inside the container
-WORKDIR /var/www/html
+RUN apt update &&  apt install -y  php-fpm  php-mysql 
 
-# Copy the contents of the current directory to the working directory inside the container
-COPY . .
+COPY ./tools/script.sh /
+COPY ./tools/wp-config.php /
 
-# Set up permissions (optional, adjust as necessary)
-RUN chown -R www-data:www-data /var/www/html
-
-# Expose port 80 to the Docker host, so we can access the container from the outside
-EXPOSE 80
-
-# Default command to run when the container starts
-CMD ["apache2-foreground"]
+CMD [ "/script.sh" ]

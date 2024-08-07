@@ -1,0 +1,93 @@
+To set up a small infrastructure with NGINX, WordPress (using php-fpm), and MariaDB using Docker, you’ll be creating a Docker environment where each service runs in its own container. Here’s a step-by-step explanation of how to achieve this and why linking these services together is crucial:
+
+### Steps to Set Up the Docker Infrastructure:
+
+1. **Create Docker Images and Containers:**
+   - **NGINX:** This will act as the web server and reverse proxy. It will handle incoming HTTP requests and pass them to the WordPress container.
+   - **WordPress (with php-fpm):** This is the application server that will run WordPress. php-fpm is used to handle PHP processing.
+   - **MariaDB:** This is the database server where WordPress will store its data.
+
+2. **Define Docker Compose File:**
+   Docker Compose is a tool for defining and running multi-container Docker applications. You’ll use a `docker-compose.yml` file to define the services, networks, and volumes. Here’s a basic example:
+
+   ```yaml
+   version: '3.8'
+
+   services:
+     nginx:
+       image: nginx:latest
+       volumes:
+         - ./nginx.conf:/etc/nginx/nginx.conf
+         - wordpress_data:/var/www/html
+       ports:
+         - "80:80"
+       depends_on:
+         - wordpress
+
+     wordpress:
+       image: wordpress:latest
+       volumes:
+         - wordpress_data:/var/www/html
+       environment:
+         WORDPRESS_DB_HOST: mariadb:3306
+         WORDPRESS_DB_NAME: wordpress
+         WORDPRESS_DB_USER: wordpressuser
+         WORDPRESS_DB_PASSWORD: wordpresspassword
+       depends_on:
+         - mariadb
+
+     mariadb:
+       image: mariadb:latest
+       environment:
+         MYSQL_ROOT_PASSWORD: rootpassword
+         MYSQL_DATABASE: wordpress
+         MYSQL_USER: wordpressuser
+         MYSQL_PASSWORD: wordpresspassword
+       volumes:
+         - mariadb_data:/var/lib/mysql
+
+   volumes:
+     wordpress_data:
+     mariadb_data:
+   ```
+
+   - **`nginx:`** Specifies the NGINX container. It uses a custom configuration file and depends on the WordPress container.
+   - **`wordpress:`** Specifies the WordPress container. It’s configured with environment variables to connect to the MariaDB container and depends on it.
+   - **`mariadb:`** Specifies the MariaDB container. It sets up the database and user credentials.
+
+3. **Configure Networking:**
+   Docker Compose automatically creates a network for your services, allowing them to communicate with each other. Each container can refer to other containers by their service names (e.g., `wordpress` can connect to `mariadb` using the hostname `mariadb`).
+
+4. **Set Up Volumes:**
+   Volumes are used to persist data. In this setup:
+   - `wordpress_data` is used to store WordPress files and ensure that data is not lost when containers are restarted.
+   - `mariadb_data` is used to persist MariaDB database files.
+
+5. **Run the Docker Compose:**
+   Use the following command to start the services:
+
+   ```bash
+   docker-compose up
+   ```
+
+   This command will pull the required images, create containers, and start them according to the configurations defined in the `docker-compose.yml` file.
+
+### Why Linking Them is Important:
+
+1. **Service Communication:**
+   - **NGINX** needs to communicate with **WordPress** to serve the web content. NGINX acts as a reverse proxy that forwards requests to the WordPress container.
+   - **WordPress** needs to communicate with **MariaDB** to store and retrieve data. The environment variables in the WordPress configuration point to the MariaDB service for database operations.
+
+2. **Isolation and Management:**
+   - Running each service in its own container isolates them from each other, making it easier to manage and troubleshoot. You can update or restart one service without affecting the others.
+
+3. **Persistence:**
+   - Using volumes ensures that data is not lost when containers are recreated. For example, WordPress content and database entries are preserved across container restarts.
+
+4. **Scalability and Flexibility:**
+   - This setup allows you to scale individual services if needed. For instance, you could run multiple WordPress instances behind a single NGINX server for load balancing.
+
+5. **Consistency:**
+   - Docker ensures that all services run in consistent environments, which helps avoid issues related to differences in software versions or configurations.
+
+By linking these services and setting up Docker Compose, you ensure that each component of your infrastructure works together seamlessly, providing a reliable and maintainable environment for your application.

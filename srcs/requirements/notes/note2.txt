@@ -1,0 +1,35 @@
+Your response captures the essence but needs more detail to fully cover the requirements:
+
+**Corrected Answer:**
+
+The mandatory requirements for the Docker project are:
+
+1. **Create Docker Containers:**
+   - **NGINX:** Set up a container with NGINX configured to use only TLSv1.2 or TLSv1.3.
+   - **WordPress:** Set up a container with WordPress and php-fpm (without NGINX).
+   - **MariaDB:** Set up a container with MariaDB (without NGINX).
+
+2. **Volumes:**
+   - Create a volume for the WordPress database.
+   - Create another volume for WordPress website files.
+
+3. **Networking:**
+   - Configure a Docker network to connect the containers.
+
+4. **Configuration:**
+   - Use Docker Compose for managing the setup, and ensure each service is built from Dockerfiles that you create yourself (no pulling pre-built images).
+
+5. **Restart Policy:**
+   - Ensure that containers are configured to restart automatically in case of a crash.
+
+6. **Avoid Prohibited Practices:**
+   - Do not use infinite loops in entrypoints or commands.
+   - Use proper PID 1 handling and best practices for Dockerfile creation.
+
+---
+
+### Question 4
+
+**What are the restrictions regarding the use of Docker images and tags in the project?**
+
+Please provide your answer!

@@ -1,0 +1,62 @@
+To excel in this Docker-based system administration project, you need to demonstrate a solid understanding of several key concepts and practices. Here's a breakdown of the most important aspects and best practices to focus on:
+
+### **Key Concepts and Best Practices**
+
+1. **Docker and Docker Compose Basics**:
+   - **Docker**: Understand how Docker images and containers work. Learn how to write Dockerfiles to create custom images.
+   - **Docker Compose**: Know how to define and run multi-container Docker applications using `docker-compose.yml`.
+
+2. **Containerization Best Practices**:
+   - **Base Images**: Choose either Alpine or Debian for your base images. Alpine is smaller and faster, but Debian might be easier if you need a broader range of packages.
+   - **Dockerfile**: Write efficient Dockerfiles with minimal layers. Avoid using unnecessary packages or commands that can bloat your image.
+   - **Entrypoint and CMD**: Properly configure the entrypoint and command in your Dockerfiles. Avoid using infinite loops or commands like `tail -f` to keep containers running.
+
+3. **Security and Performance**:
+   - **TLS/SSL**: Configure NGINX to use TLSv1.2 or TLSv1.3 for secure HTTPS communication.
+   - **No Hardcoded Passwords**: Use environment variables (stored in a `.env` file) for sensitive information such as passwords. Ensure no sensitive data is hardcoded in Dockerfiles.
+   - **Volumes**: Use Docker volumes to persist data, such as WordPress files and database content. This ensures data is not lost when containers are stopped or removed.
+
+4. **Networking and Connectivity**:
+   - **Docker Network**: Use Docker networks to enable communication between containers. Avoid using legacy options like `--link` or `network: host`.
+   - **Service Connectivity**: Ensure that all containers can communicate with each other through the defined Docker network.
+
+5. **Container Management**:
+   - **Restart Policies**: Set appropriate restart policies for your containers to handle crashes and failures.
+   - **Logging and Monitoring**: Although not explicitly required, consider logging and monitoring practices to manage and debug your containers effectively.
+
+6. **Configuration and Maintenance**:
+   - **Makefile**: Write a Makefile that automates the build and deployment process. This should include commands to build Docker images, start containers, and handle other setup tasks.
+   - **Environment Configuration**: Place configuration files like `docker-compose.yml` and `.env` in the correct directories. Ensure the `.env` file is ignored by version control systems (like Git) to avoid exposing sensitive data.
+
+7. **Project Structure and Submission**:
+   - **Directory Structure**: Follow the required directory structure as outlined. Ensure your files are in the correct locations and named appropriately.
+   - **Testing**: Thoroughly test your setup to ensure all services are running correctly, and the setup meets all the mandatory requirements before working on the bonus part.
+
+### **Example Directory Structure**
+
+Make sure your project directory structure looks like this:
+
+```
+/project-root
+|-- Makefile
+|-- srcs/
+|   |-- .env
+|   |-- docker-compose.yml
+|   |-- requirements/
+|       |-- mariadb/
+|       |   |-- Dockerfile
+|       |   |-- .dockerignore
+|       |-- nginx/
+|       |   |-- Dockerfile
+|       |   |-- .dockerignore
+|       |-- wordpress/
+|           |-- Dockerfile
+|           |-- .dockerignore
+```
+
+### **Submission and Peer-Evaluation**
+
+- **Repository**: Ensure your Git repository is correctly set up and contains all necessary files.
+- **Evaluation**: Your project will be evaluated based on the completeness and correctness of the mandatory part. Bonus parts will be assessed only if the mandatory requirements are perfectly met.
+
+By focusing on these areas and following best practices, you should be well-prepared to complete the project successfully.

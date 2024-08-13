@@ -19,10 +19,7 @@ wp core download --allow-root
 mv /var/www/html/wp-config.php /var/www/html/wp-config-original.php
 
 # Set up wp-config.php with environment variables
-sed -i "s/database_name_here/$DB_NAME/g" wp-config-original.php
-sed -i "s/username_here/$DB_USER/g" wp-config-original.php
-sed -i "s/password_here/$DB_PASSWORD/g" wp-config-original.php
-mv wp-config-original.php wp-config.php
+   
 
 # Install WordPress using wp-cli
 wp core install \

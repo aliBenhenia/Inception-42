@@ -34,7 +34,7 @@ Sure! Let's go step by step through what this bash script does and simplify the 
 ### 5. **Move wp-config.php**
    ```bash
    mv /var/www/html/wp-config.php /var/www/html/wp-config-original.php
-   ```
+   ``` 
    - **What It Does:** Moves the `wp-config.php` file to a backup location.
    - **Why It’s Needed:** Normally, this file holds all the important configuration details for WordPress (like database credentials). However, in the script as it is, the `wp-config.php` might not even exist at this point, so this step could be incorrect or unnecessary.
 

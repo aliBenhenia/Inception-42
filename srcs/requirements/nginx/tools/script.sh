@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Variables
-CERTS_PATH="/etc/ssl/certs/nginx-selfsigned.crt"
-KEY_PATH="/etc/ssl/private/nginx-selfsigned.key"
-DOMAIN_NAME="${DOMAIN_NAME:-localhost}"
+# CERTS_PATH="/etc/ssl/certs/nginx-selfsigned.crt"
+# KEY_PATH="/etc/ssl/private/nginx-selfsigned.key"
+# DOMAIN_NAME="${DOMAIN_NAME:-localhost}"
 
 # Generate a self-signed SSL certificate
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \

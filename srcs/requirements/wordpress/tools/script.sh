@@ -24,8 +24,8 @@ mv /var/www/html/wp-config.php /var/www/html/wp-config-original.php
 # Install WordPress using wp-cli
 wp core install \
     --url="$DOMAIN_NAME" \
-    --title="$WP_TITLE" \
-    --admin_user="$WP_ADMIN_USER" \
+    --title="$WP_SITE_TITLE" \
+    --admin_user="$WP_ADMIN_USERNAME" \
     --admin_password="$WP_ADMIN_PASSWORD" \
     --admin_email="$WP_ADMIN_EMAIL" \
     --skip-email \

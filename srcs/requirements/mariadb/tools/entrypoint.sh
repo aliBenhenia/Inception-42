@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Variables
-DB_NAME="your_database_name"
-DB_USER="your_username"
-DB_PASS="your_password"
+# DB_NAME="your_database_name"
+# DB_USER="your_username"
+# DB_PASS="your_password"
 
 # SQL commands
 SQL1="CREATE DATABASE IF NOT EXISTS $DB_NAME;"

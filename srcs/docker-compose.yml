@@ -30,7 +30,8 @@ services:
     depends_on:
       - wordpress
     volumes:
-      - wordpress:/var/www/html
+      # - wordpress:/var/www/html
+      - /Users/abenheni/Desktop/Inception/srcs/wordpress:/usr/share/nginx/html
     networks:
       - inception
     env_file:
@@ -44,7 +45,8 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - wordpress:/var/www/html
+      # - wordpress:/var/www/html
+       - /Users/abenheni/Desktop/Inception/srcs/wordpress:/var/www/html
     env_file:
       - .env
     networks:
@@ -56,7 +58,8 @@ services:
     build: ./requirements/mariadb/
     image: mariadb:42
     volumes:
-      - mariadb:/var/lib/mysql
+      # - mariadb:/var/lib/mysql
+       - /Users/abenheni/Desktop/Inception/srcs/mariadb:/var/lib/mysql
     env_file:
       - .env
     networks:

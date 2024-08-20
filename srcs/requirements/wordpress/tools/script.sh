@@ -15,11 +15,18 @@ mv wp-cli.phar /usr/local/bin/wp
 # Download WordPress core
 wp core download --allow-root
 
-# Copy wp-config.php provided in the Docker build context
-mv /var/www/html/wp-config.php /var/www/html/wp-config-original.php
-
-# Set up wp-config.php with environment variables
-   
+# Check if wp-config.php exists and handle it accordingly
+if [ -f /var/www/html/wp-config.php ]; then
+    mv /var/www/html/wp-config.php /var/www/html/wp-config-original.php
+else
+    # Create a new wp-config.php if it does not exist
+    wp config create \
+        --dbname="$WP_DB_NAME" \
+        --dbuser="$WP_DB_USER" \
+        --dbpass="$WP_DB_PASSWORD" \
+        --dbhost="$WP_DB_HOST" \
+        --allow-root
+fi
 
 # Install WordPress using wp-cli
 wp core install \
@@ -50,7 +57,7 @@ wp plugin update --all --allow-root
 sed -i 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/g' /etc/php/7.3/fpm/pool.d/www.conf
 
 # Create directory for PHP-FPM to run
-mkdir /run/php
+mkdir -p /run/php
 
 # Enable Redis caching for WordPress (if needed)
 wp redis enable --allow-root

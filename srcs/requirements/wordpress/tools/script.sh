@@ -19,7 +19,7 @@ WP_DB_HOST="mariadb"  # Update to your actual MariaDB service name
 # MySQL Setup Variables
 DB_NAME="maraidb_name"
 DB_USER="ali"
-DB_PASS="123ali"  # Update DB_PASS to match the MySQL user password
+DB_PASS="123"  # Update DB_PASS to match the MySQL user password
 DB_ROOT_PASS="123"
 
 # Display the MySQL variables

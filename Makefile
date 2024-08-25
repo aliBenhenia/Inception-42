@@ -3,7 +3,7 @@ all:
 
 up:
 	sudo mkdir -p /home/abenheni/data/mariadb /home/abenheni/data/wordpress
-	docker-compose -f ./srcs/docker-compose.yml up -d
+	docker-compose -f ./srcs/docker-compose.yml up 
 
 down:
 	docker-compose -f ./srcs/docker-compose.yml down

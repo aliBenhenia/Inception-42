@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Sleep for a while to wait for MariaDB to be ready
-sleep 10
+sleep 20  # Increase if necessary to ensure MariaDB is fully ready
 
 # WordPress Configuration Variables
 WP_SITE_TITLE="RiadElYacoute"
@@ -12,21 +12,16 @@ WP_USER="julia"
 WP_USER_EMAIL="abenheni@1337.com"
 WP_USER_PASSWORD="1233333"
 WP_DB_NAME="maraidb_name"
-WP_DB_USER="ss"
-WP_DB_PASSWORD="tt"
-WP_DB_HOST="mariadb"  # Update to your actual MariaDB service name
+WP_DB_USER="ali"  # Ensure this matches the MariaDB user
+WP_DB_PASSWORD="123"  # Ensure this matches the MariaDB user's password
+WP_DB_HOST="mariadb"  # Use the correct service name for MariaDB
 
-# MySQL Setup Variables
-DB_NAME="maraidb_name"
-DB_USER="ali"
-DB_PASS="123"  # Update DB_PASS to match the MySQL user password
-DB_ROOT_PASS="123"
-
-# Display the MySQL variables
-echo "DB_ROOT_PASS: $DB_ROOT_PASS"
-echo "DB_NAME: $DB_NAME"
-echo "DB_USER: $DB_USER"
-echo "DB_PASS: $DB_PASS"
+# Display the WordPress variables
+echo "-> WP_SITE_TITLE: $WP_SITE_TITLE"
+echo "-> WP_ADMIN_USERNAME: $WP_ADMIN_USERNAME"
+echo "-> WP_DB_NAME: $WP_DB_NAME"
+echo "-> WP_DB_USER: $WP_DB_USER"
+echo "-> WP_DB_PASSWORD: $WP_DB_PASSWORD"
 
 # Start PHP-FPM service
 service php7.4-fpm start
@@ -37,7 +32,7 @@ cd /var/www/html
 
 # Download and configure WordPress
 wp core download --allow-root
-wp config create --allow-root --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$WP_DB_HOST"
+wp config create --allow-root --dbname="$WP_DB_NAME" --dbuser="$WP_DB_USER" --dbpass="$WP_DB_PASSWORD" --dbhost="$WP_DB_HOST"
 
 # Wait for the MariaDB service to be ready
 until mysqladmin ping -h "$WP_DB_HOST" -u "$WP_DB_USER" -p"$WP_DB_PASSWORD" --silent; do
@@ -46,7 +41,7 @@ until mysqladmin ping -h "$WP_DB_HOST" -u "$WP_DB_USER" -p"$WP_DB_PASSWORD" --si
 done
 
 # Install WordPress
-WP_URL="http://localhost"  # Define the URL for your WordPress site
+WP_URL="http://localhost"  # Update as needed
 wp core install --allow-root --url="$WP_URL" --title="$WP_SITE_TITLE" --admin_user="$WP_ADMIN_USERNAME" --admin_password="$WP_ADMIN_PASSWORD" --admin_email="$WP_ADMIN_EMAIL"
 wp user create --allow-root "$WP_USER" "$WP_USER_EMAIL" --user_pass="$WP_USER_PASSWORD" --role=subscriber
 

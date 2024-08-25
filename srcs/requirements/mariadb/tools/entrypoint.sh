@@ -1,22 +1,23 @@
 #!/bin/bash
+# Start MariaDB service
 
-# Variables
-DB_NAME="your_database_name"
-DB_USER="your_username"
-DB_PASS="your_password"
+echo "DB_ROOT_PASS: $DB_ROOT_PASS"
+echo "DB_NAME: $DB_NAME"
+echo "DB_USER: $DB_USER"
+echo "DB_PASS: $DB_PASS"
 
-# SQL commands
-SQL1="CREATE DATABASE IF NOT EXISTS $DB_NAME;"
-SQL2="CREATE USER IF NOT EXISTS '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';"
-SQL3="GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'localhost';"
-SQL4="FLUSH PRIVILEGES;"
+service mariadb start
+sleep 5
 
-# Execute SQL commands
-mysql -u root -p <<EOF
-$SQL1
-$SQL2
-$SQL3
-$SQL4
-EOF
+# MariaDB Configuration
+mysqladmin -u root password "$DB_ROOT_PASS"
+mysql -u root -p"$DB_ROOT_PASS" -e "CREATE DATABASE IF NOT EXISTS $DB_NAME;"
+mysql -u root -p"$DB_ROOT_PASS" -e "CREATE USER IF NOT EXISTS '$DB_USER'@'%' IDENTIFIED BY '$DB_PASS';"
+mysql -u root -p"$DB_ROOT_PASS" -e "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%';"
+mysql -u root -p"$DB_ROOT_PASS" -e "FLUSH PRIVILEGES;"
 
-echo "Database '$DB_NAME' and user '$DB_USER' created with all privileges."
+# Optionally stop the service if you're starting mysqld_safe separately
+service mariadb stop
+
+# Start MySQL server daemon with specified configurations
+mysqld_safe --port=3306 --bind-address=0.0.0.0 

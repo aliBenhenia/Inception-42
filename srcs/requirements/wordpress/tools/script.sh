@@ -19,7 +19,7 @@ wp config create --allow-root --dbname="$DB_NAME" --dbuser="$WP_DB_USER" --dbpas
 
 # Wait for the MariaDB service to be ready
 until mysqladmin ping -h "$WP_DB_HOST" -u "$WP_DB_USER" -p"$WP_DB_PASSWORD" --silent; do
-  echo "Waiting for database connection..."
+  echo "---> Waiting for database connection..."
   sleep 5
 done
 

@@ -23,7 +23,7 @@ RUN echo "listen = 0.0.0.0:9000" >> /etc/php/7.4/fpm/pool.d/www.conf
 
 EXPOSE 9000
 
-# Copy and set up script
+# Copy the script to the container
 COPY tools/script.sh /script.sh
 RUN chmod +x /script.sh
 

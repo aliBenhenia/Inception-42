@@ -17,7 +17,7 @@ server {
     listen [::]:443 ssl;
 
     server_name $DOMAIN_NAME;
-
+a
     ssl_certificate $CERTS_PATH;
     ssl_certificate_key $KEY_PATH;
     ssl_protocols TLSv1.3;

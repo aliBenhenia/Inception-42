@@ -1,26 +1,22 @@
-# Use a specific tag for stability
+# Use the official Debian 11 image as the base image.
 FROM debian:11
 
-# Install necessary packages and clean up to reduce image size
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y nginx openssl && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# Update the package lists, upgrade installed packages, and install NGINX and OpenSSL.
+RUN apt update && apt upgrade -y && apt install -y nginx openssl
 
-# Generate SSL certificate and key with appropriate permissions
-RUN mkdir -p /etc/nginx/ssl && \
-    openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-    -keyout /etc/nginx/ssl/ssl_cer_key.key \
-    -out /etc/nginx/ssl/ssl_cer.crt \
-    -subj "/C=MA/L=Khouribga/CN=abenheni/UID=abenheni" && \
-    chmod 600 /etc/nginx/ssl/ssl_cer_key.key
+# Generate a self-signed SSL certificate and key for HTTPS.
+# - `-x509` specifies the X.509 certificate format.
+# - `-nodes` means "no DES", so the private key will not be encrypted.
+# - `-out` specifies the output file for the certificate.
+# - `-keyout` specifies the output file for the private key.
+# - `-subj` specifies the subject field for the certificate.
+RUN openssl req -x509 -nodes -out /etc/nginx/ssl_cer.crt -keyout /etc/nginx/ssl_cer_key.key -subj "/C=Ma/L=khouribga/CN=hed-dyb/UID=hed-dyb"
 
-# Copy the custom nginx configuration
-COPY conf/default.conf /etc/nginx/default.conf
+# Copy your custom NGINX configuration file into the container.
+COPY conf/nginx.conf /etc/nginx/nginx.conf
 
-# Expose port 443 for HTTPS traffic
+# Expose port 443 to allow HTTPS traffic to reach the container.
 EXPOSE 443
 
-# Start NGINX in the foreground
+# Start NGINX in the foreground (so it keeps running as the main process).
 CMD ["nginx", "-g", "daemon off;"]

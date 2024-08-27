@@ -1,42 +1,43 @@
-#!/bin/bash
+events {
+    # Configuration related to handling connections and events goes here.
+    # This block is usually left empty unless specific event settings are needed.
+}
 
-# Variables
-CERTS_PATH="/etc/ssl/certs/nginx-selfsigned.crt"
-KEY_PATH="/etc/ssl/private/nginx-selfsigned.key"
-DOMAIN_NAME="${DOMAIN_NAME:-localhost}"
+http {
+    server {
+        # Listen on port 443 for HTTPS connections with SSL enabled.
+        listen 443 ssl;
+        
+        # Define the server names for this virtual host. 
+        # `www.$DOMAIN_NAME.42.fr` and `$DOMAIN_NAME.42.fr` are placeholders for the actual domain.
+        server_name www.$DOMAIN_NAME.42.fr $DOMAIN_NAME.42.fr;
 
-# Generate a self-signed SSL certificate
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-    -keyout "$KEY_PATH" -out "$CERTS_PATH" \
-    -subj "/C=MO/L=KH/O=1337/OU=student/CN=$DOMAIN_NAME"
+        # Specify the SSL certificate and key files for HTTPS.
+        ssl_certificate /etc/nginx/ssl_cer.crt;
+        ssl_certificate_key /etc/nginx/ssl_cer_key.key;
 
-# Create or overwrite the Nginx server block configuration
-cat <<EOF > /etc/nginx/sites-available/default
-server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
+        # Set the SSL protocols to use.
+        # In this case, only TLSv1.3 is enabled for enhanced security.
+        ssl_protocols TLSv1.3;
 
-    server_name $DOMAIN_NAME;
-a
-    ssl_certificate $CERTS_PATH;
-    ssl_certificate_key $KEY_PATH;
-    ssl_protocols TLSv1.3;
+        # Define the root directory for serving files and the default index files.
+        root /var/www/html;
+        index index.php index.html;
 
-    index index.php;
-    root /var/www/html;
+        # Handle requests for files and directories.
+        # If a file or directory is not found, return a 404 error.
+        location / {
+            try_files $uri $uri/ =404;
+        }
 
-    location ~ \.php$ {
-        try_files \$uri =404;
-        fastcgi_pass wordpress:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
-    }
-
-    location / {
-        try_files \$uri \$uri/ =404;
+        # Handle PHP file requests.
+        # Pass these requests to a FastCGI process running on port 9000.
+        location ~ \.php$ {
+            include fastcgi.conf;
+            fastcgi_pass wordpress:9000; # Connects to the WordPress service on port 9000.
+        }
     }
 }
-EOF
 
-# Reload Nginx to apply the changes
-nginx -s reload || nginx -g "daemon off;"
+# test - sa --------------------------------------------
+# Placeholder for additional configuration or comments.

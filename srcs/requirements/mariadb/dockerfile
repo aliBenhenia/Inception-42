@@ -1,12 +1,20 @@
+# Use the official Debian 11 image as the base image.
 FROM debian:11
 
-RUN apt update -y && apt upgrade -y
+# Update the package lists and upgrade installed packages to their latest versions.
+RUN apt -y update && apt -y upgrade
 
-RUN apt install mariadb-server -y
+# Install MariaDB server to provide database services.
+RUN apt install -y mariadb-server
 
-COPY tools/entrypoint.sh /
-
-RUN chmod +x entrypoint.sh
+# Expose port 3306 to allow access to the MariaDB server from outside the container.
 EXPOSE 3306
 
-CMD ["./entrypoint.sh"]
+# Copy the custom script (script.sh) from your local directory to the root directory in the container.
+COPY tools/script.sh /
+
+# Make the script executable.
+RUN chmod +x script.sh
+
+# Set the script as the entry point, so it will run when the container starts.
+ENTRYPOINT ["./script.sh"]

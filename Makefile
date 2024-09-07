@@ -1,16 +1,14 @@
-all:
-	docker-compose -f ./srcs/docker-compose.yml ps
-
-up:
+up  : 
 	sudo mkdir -p /home/abenheni/data/mariadb /home/abenheni/data/wordpress
 	docker-compose -f ./srcs/docker-compose.yml up --build
-
+ps  :
+	docker-compose -f ./srcs/docker-compose.yml ps
 down:
 	docker-compose -f ./srcs/docker-compose.yml down
 
-stop:
+stop :
 	sudo rm -rf /home/abenheni/data/mariadb /home/abenheni/data/wordpress
 	docker-compose -f ./srcs/docker-compose.yml stop
 
-start:
+start :
 	docker-compose -f ./srcs/docker-compose.yml start

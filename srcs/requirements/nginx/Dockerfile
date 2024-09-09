@@ -10,7 +10,7 @@ RUN apt update && apt upgrade -y && apt install -y nginx openssl
 # - `-out` specifies the output file for the certificate.
 # - `-keyout` specifies the output file for the private key.
 # - `-subj` specifies the subject field for the certificate.
-RUN openssl req -x509 -nodes -out /etc/nginx/ssl_cer.crt -keyout /etc/nginx/ssl_cer_key.key -subj "/C=Ma/L=khouribga/CN=hed-dyb/UID=hed-dyb"
+RUN openssl req -x509 -nodes -out /etc/nginx/ssl_cer.crt -keyout /etc/nginx/ssl_cer_key.key -subj "/C=Ma/L=khouribga/CN=abenheni/UID=abenheni"
 
 # Copy your custom NGINX configuration file into the container.
 COPY conf/nginx.conf /etc/nginx/nginx.conf

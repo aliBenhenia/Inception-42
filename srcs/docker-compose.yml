@@ -1,5 +1,5 @@
 # Docker Compose configuration file
-# version: "2.2" specifies the version of Docker Compose syntax used.
+# version:2"2" specifies the version of Docker Compose syntax used.
 version: "2.2"
 
 # Define custom networks for communication between services.
@@ -12,14 +12,14 @@ volumes:
     driver: local
     driver_opts:
       type: none # No specific filesystem type, allows mounting any directory.
-      device: /home/volumes/data/mariadb # Path on the host machine to be used as storage for MariaDB.
+      device: /home/abenheni/data/mariadb # Path on the host machine to be used as storage for MariaDB.
       o: bind # Bind-mount a directory from the host to the container.
 
   wordpress_v:
     driver: local
     driver_opts:
       type: none # No specific filesystem type, same as above.
-      device: /home/volumes/data/wordpress # Path on the host machine to be used as storage for WordPress.
+      device: /home/abenheni/data/wordpress # Path on the host machine to be used as storage for WordPress.
       o: bind # Bind-mount a directory from the host to the container.
 
 

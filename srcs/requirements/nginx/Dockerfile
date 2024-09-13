@@ -20,3 +20,25 @@ EXPOSE 443
 
 # Start NGINX in the foreground (so it keeps running as the main process).
 CMD ["nginx", "-g", "daemon off;"]
+
+
+# not :openssl req -x509:
+
+#     Purpose: Creates a self-signed certificate.
+#     Reason: You need a certificate to enable HTTPS on your website.
+#     -nodes:
+    
+#     Purpose: Stands for "no DES," meaning the private key will not be password-protected.
+#     Reason: Simplifies automated processes since no passphrase is required to use the key.
+#     -out /etc/nginx/ssl_cer.crt:
+    
+#     Purpose: Specifies where to save the certificate file.
+#     Reason: You need to store the certificate so that the web server can use it to enable HTTPS.
+#     -keyout /etc/nginx/ssl_cer_key.key:
+    
+#     Purpose: Specifies where to save the private key file.
+#     Reason: The private key is used to decrypt data sent to your server. It must be kept secure and is needed alongside the certificate.
+#     -subj "/C=Ma/L=khouribga/CN=abenheni/UID=abenheni":
+    
+#     Purpose: Sets information about the certificate, like Country (C), Location (L), Common Name (CN), and User ID (UID).
+#     Reason: Provides identity details for the certificate, which is helpful for users to verify the certificate’s legitimacy.

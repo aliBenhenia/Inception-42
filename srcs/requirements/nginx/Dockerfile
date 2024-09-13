@@ -42,3 +42,44 @@ CMD ["nginx", "-g", "daemon off;"]
     
 #     Purpose: Sets information about the certificate, like Country (C), Location (L), Common Name (CN), and User ID (UID).
 #     Reason: Provides identity details for the certificate, which is helpful for users to verify the certificate’s legitimacy.
+
+
+# doc2 :
+#     Example: Secure Communication Between a Client and a Server
+# 1. Client Requests Secure Connection
+# Client: A web browser (e.g., Chrome) wants to connect to a secure website (e.g., https://example.com).
+# 2. Server Responds with Certificate
+# Server: example.com has an SSL certificate that includes its public key.
+# Server’s Certificate:
+# Public Key: Part of the SSL certificate, shared openly.
+# 3. SSL/TLS Handshake
+# Client Receives Certificate:
+
+# Action: The client receives the server’s SSL certificate, which contains the public key.
+# Client Creates Session Key:
+
+# Session Key: A temporary symmetric key used for encrypting the actual data.
+# Example: Session key might be ABCD1234.
+# Client Encrypts Session Key:
+
+# Encryption: The client encrypts the session key with the server’s public key from the certificate.
+# Action: This encrypted session key is sent to the server.
+# Server Decrypts Session Key:
+
+# Decryption: The server uses its private key to decrypt the session key.
+# Result: Both the client and server now have the same session key.
+# 4. Secure Data Exchange
+# Client Sends Encrypted Data:
+
+# Encryption: The client encrypts the data (e.g., a credit card number) using the session key.
+# Example Data: Credit Card Number: 1234-5678-9876-5432
+# Encrypted Data: Suppose this data encrypts to XyZ987....
+# Server Receives and Decrypts Data:
+
+# Decryption: The server decrypts the encrypted data using the session key.
+# Result: The server retrieves the original data, e.g., 1234-5678-9876-5432.
+# Summary of Keys and Encryption
+# Public Key (Server’s): Used by the client to encrypt the session key (shared openly).
+# Private Key (Server’s): Used by the server to decrypt the session key (kept secret).
+# Session Key: Used by both the client and server to encrypt and decrypt the actual data exchanged during the session.
+# This process ensures that even if someone intercepts the data being transmitted, they would not be able to read or alter it without the session key, which is securely exchanged using the public-private key pair.

@@ -4,7 +4,7 @@
 service mariadb start
 
 # Wait for 5 seconds to ensure MariaDB has started properly
-sleep 5
+sleep 4
 
 # 2. Configure MariaDB
 # Set the root password

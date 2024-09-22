@@ -9,8 +9,8 @@ http {
         listen 443 ssl;
         
         # Define the server names for this virtual host. 
-        # `www.$DOMAIN_NAME.42.fr` and `$DOMAIN_NAME.42.fr` are placeholders for the actual domain.
-        server_name www.$DOMAIN_NAME.42.fr $DOMAIN_NAME.42.fr;
+        # `www.$APP_DOMAIN.42.fr` and `$APP_DOMAIN.42.fr` are placeholders for the actual domain.
+        server_name www.$APP_DOMAIN.42.fr $APP_DOMAIN.42.fr;
 
         # Specify the SSL certificate and key files for HTTPS.
         ssl_certificate /etc/nginx/ssl_cer.crt;

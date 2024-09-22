@@ -45,11 +45,11 @@ Sure! Let's go step by step through what this bash script does and simplify the 
 ### 7. **Install WordPress**
    ```bash
    wp core install \
-       --url="$DOMAIN_NAME" \
-       --title="$WP_TITLE" \
+       --url="$APP_DOMAIN" \
+       --title="$SITE_TITLE" \
        --admin_user="$WP_ADMIN_USER" \
-       --admin_password="$WP_ADMIN_PASSWORD" \
-       --admin_email="$WP_ADMIN_EMAIL" \
+       --admin_password="$ADMIN_USERNAME" \
+       --admin_email="$ADMIN_EMAIL" \
        --skip-email \
        --allow-root
    ```
@@ -58,9 +58,9 @@ Sure! Let's go step by step through what this bash script does and simplify the 
 
 ### 8. **Create Additional WordPress User**
    ```bash
-   wp user create "$WP_USER" "$WP_USER_EMAIL" \
+   wp user create "$WP_USER" "$USER_EMAIL" \
        --role=author \
-       --user_pass="$WP_USER_PASSWORD" \
+       --user_pass="$USER_PASSWORD" \
        --allow-root
    ```
    - **What It Does:** Creates a new WordPress user with the 'author' role.

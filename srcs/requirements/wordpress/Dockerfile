@@ -1,5 +1,5 @@
 # Use the official Debian 11 image as the base image.
-FROM debian:11
+FROM debian:bullseye
 
 # Update the package lists, upgrade installed packages, and install MariaDB client,
 # PHP, PHP MySQL extension, PHP-FPM, and wget.

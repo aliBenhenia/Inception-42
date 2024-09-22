@@ -1,5 +1,5 @@
 # Use the official Debian 11 image as the base image.
-FROM debian:11
+FROM debian:bullseye
 
 # Update the package lists and upgrade installed packages to their latest versions.
 RUN apt -y update && apt -y upgrade

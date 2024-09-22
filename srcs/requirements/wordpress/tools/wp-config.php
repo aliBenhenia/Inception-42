@@ -22,7 +22,7 @@
 define( 'DB_NAME', getenv('WP_DB_NAME') );
 define( 'DB_USER', getenv('WP_DB_USER') );
 define( 'DB_PASSWORD', getenv('WP_DB_PASSWORD') );
-define( 'DB_CONNECTION_HOST', 'mariadb' ); // Assuming 'mariadb' is your database service name in docker-compose
+define( 'DB_HOST', 'mariadb' ); // Assuming 'mariadb' is your database service name in docker-compose
 define( 'DB_CHARSET', 'utf8' );
 define( 'DB_COLLATE', '' );
 

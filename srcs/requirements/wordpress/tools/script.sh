@@ -14,7 +14,7 @@ cd /var/www/html
 wp core download --allow-root
 
 # Create the WordPress configuration file using the specified database credentials.
-wp config create --allow-root --dbname=$MARIADB_DATABASE --dbuser=$WP_ADMIN_LOGIN --dbpass=$WP_ADMIN_PASSWORD --dbhost=$DB_HOST
+wp config create --allow-root --dbname=$MARIADB_DATABASE --dbuser=$MARIADB_USER --dbpass=$MARIADB_PASSWORD --dbhost=$DB_HOST
 
 # Install WordPress with the provided site information and admin credentials.
 wp core install --allow-root --url=$WP_URL --title=$WP_TITLE --admin_user=$WP_ADMIN_LOGIN --admin_password=$WP_ADMIN_PASSWORD --admin_email=$WP_ADMIN_EMAIL

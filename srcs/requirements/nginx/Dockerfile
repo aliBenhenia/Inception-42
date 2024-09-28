@@ -1,5 +1,5 @@
 # Use the official Debian 11 image as the base image.
-FROM debian:Bullseye
+FROM debian:bullseye
 
 # Update the package lists, upgrade installed packages, and install NGINX and OpenSSL.
 RUN apt update && apt upgrade -y && apt install -y nginx openssl
@@ -118,7 +118,7 @@ CMD ["nginx", "-g", "daemon off;"]
 #     - Load balancer: Kaywzz3 l traffic 3la bzaf d servers
     
 #     4. Dockerfile Commands:
-#     - `FROM debian:Bullseye`: Kaybda l image b Debian 11 ka base
+#     - `FROM debian:bullseye`: Kaybda l image b Debian 11 ka base
 #     - `RUN apt update && apt upgrade -y && apt install -y nginx openssl`: Kay7ddt l system w kayinstalli NGINX w OpenSSL
 #     - `COPY conf/nginx.conf /etc/nginx/nginx.conf`: Kaykopyi l configuration file dyal NGINX l blasto f container
 #     - `EXPOSE 443`: Kay3ln blli l container ghadi yft7 port 443 (port dyal HTTPS)

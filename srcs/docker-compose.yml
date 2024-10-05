@@ -1,63 +1,60 @@
-# Docker Compose configuration file
-# version:2"2" specifies the version of Docker Compose syntax used.
 version: "2.2"
 
-# Define custom networks for communication between services.
-networks:
-  main_network: # A custom network for connecting the containers.
 
-# Define named volumes for persistent storage.
+networks:
+  main_network: 
+
 volumes:
   mariadb_v:
     driver: local
     driver_opts:
-      type: none # No specific filesystem type, allows mounting any directory.
-      device: /home/abenheni/data/mariadb # Path on the host machine to be used as storage for MariaDB.
-      o: bind # Bind-mount a directory from the host to the container.
+      type: none 
+      device: /home/abenheni/data/mariadb 
+      o: bind 
 
   wordpress_v:
     driver: local
     driver_opts:
-      type: none # No specific filesystem type, same as above.
-      device: /home/abenheni/data/wordpress # Path on the host machine to be used as storage for WordPress.
-      o: bind # Bind-mount a directory from the host to the container.
+      type: none  
+      device: /home/abenheni/data/wordpress  
+      o: bind 
 
 
 services:
-  # NGINX service configuration.
+   
   nginx:
-    build: requirements/nginx/ # Path to the Dockerfile for building the NGINX image.
-    container_name: nginx # Name of the container.
+    build: requirements/nginx/ 
+    container_name: nginx  
     ports:
-      - "443:443" # Map port 443 on the host to port 443 in the container (used for HTTPS).
+      - "443:443" 
     depends_on:
-      - wordpress # Ensure WordPress container starts before NGINX.
+      - wordpress 
     networks:
-      - main_network # Connect the container to the custom network.
+      - main_network 
     volumes:
-      - wordpress_v:/var/www/html # Mount the WordPress volume to the NGINX container.
-    restart: on-failure # Automatically restart the container if it fails.
+      - wordpress_v:/var/www/html 
+    restart: on-failure 
 
-  # MariaDB service configuration.
+  
   mariadb:
-    build: requirements/mariadb/ # Path to the Dockerfile for building the MariaDB image.
-    container_name: mariadb # Name of the container.
-    env_file: .env # Load environment variables from a .env file.
+    build: requirements/mariadb/
+    container_name: mariadb 
+    env_file: .env 
     networks:
-      - main_network # Connect the container to the custom network.
+      - main_network 
     volumes:
-      - mariadb_v:/var/lib/mysql # Mount the MariaDB volume to the container.
-    restart: on-failure # Automatically restart the container if it fails.
+      - mariadb_v:/var/lib/mysql 
+    restart: on-failure 
 
-  # WordPress service configuration.
+ 
   wordpress:
-    build: requirements/wordpress/ # Path to the Dockerfile for building the WordPress image.
-    container_name: wordpress # Name of the container.
-    env_file: .env # Load environment variables from a .env file.
+    build: requirements/wordpress/ 
+    container_name: wordpress 
+    env_file: .env 
     depends_on:
-      - mariadb # Ensure MariaDB container starts before WordPress.
+      - mariadb 
     networks:
-      - main_network # Connect the container to the custom network.
+      - main_network 
     volumes:
-      - wordpress_v:/var/www/html # Mount the WordPress volume to the container.
-    restart: on-failure # Automatically restart the container if it fails.
+      - wordpress_v:/var/www/html 
+    restart: on-failure 

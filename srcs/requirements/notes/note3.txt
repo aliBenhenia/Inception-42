@@ -1,6 +1,6 @@
 To excel in this Docker-based system administration project, you need to demonstrate a solid understanding of several key concepts and practices. Here's a breakdown of the most important aspects and best practices to focus on:
 
-### **Key Concepts and Best Practices**
+    **Key Concepts and Best Practices**
 
 1. **Docker and Docker Compose Basics**:
    - **Docker**: Understand how Docker images and containers work. Learn how to write Dockerfiles to create custom images.
@@ -32,7 +32,7 @@ To excel in this Docker-based system administration project, you need to demonst
    - **Directory Structure**: Follow the required directory structure as outlined. Ensure your files are in the correct locations and named appropriately.
    - **Testing**: Thoroughly test your setup to ensure all services are running correctly, and the setup meets all the mandatory requirements before working on the bonus part.
 
-### **Example Directory Structure**
+    **Example Directory Structure**
 
 Make sure your project directory structure looks like this:
 
@@ -54,7 +54,7 @@ Make sure your project directory structure looks like this:
 |           |-- .dockerignore
 ```
 
-### **Submission and Peer-Evaluation**
+    **Submission and Peer-Evaluation**
 
 - **Repository**: Ensure your Git repository is correctly set up and contains all necessary files.
 - **Evaluation**: Your project will be evaluated based on the completeness and correctness of the mandatory part. Bonus parts will be assessed only if the mandatory requirements are perfectly met.

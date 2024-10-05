@@ -28,7 +28,7 @@ The mandatory requirements for the Docker project are:
 
 ---
 
-    Question 4
+### Question 4
 
 **What are the restrictions regarding the use of Docker images and tags in the project?**
 

@@ -1,6 +1,6 @@
 To set up a small infrastructure with NGINX, WordPress (using php-fpm), and MariaDB using Docker, you’ll be creating a Docker environment where each service runs in its own container. Here’s a step-by-step explanation of how to achieve this and why linking these services together is crucial:
 
-    Steps to Set Up the Docker Infrastructure:
+### Steps to Set Up the Docker Infrastructure:
 
 1. **Create Docker Images and Containers:**
    - **NGINX:** This will act as the web server and reverse proxy. It will handle incoming HTTP requests and pass them to the WordPress container.
@@ -72,7 +72,7 @@ To set up a small infrastructure with NGINX, WordPress (using php-fpm), and Mari
 
    This command will pull the required images, create containers, and start them according to the configurations defined in the `docker-compose.yml` file.
 
-    Why Linking Them is Important:
+### Why Linking Them is Important:
 
 1. **Service Communication:**
    - **NGINX** needs to communicate with **WordPress** to serve the web content. NGINX acts as a reverse proxy that forwards requests to the WordPress container.

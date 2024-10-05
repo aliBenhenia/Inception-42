@@ -28,6 +28,7 @@ services:
   nginx:
     build: requirements/nginx/ # Path to the Dockerfile for building the NGINX image.
     container_name: nginx # Name of the container.
+    image: nginx
     ports:
       - "443:443" # Map port 443 on the host to port 443 in the container (used for HTTPS).
     depends_on:
@@ -42,6 +43,7 @@ services:
   mariadb:
     build: requirements/mariadb/ # Path to the Dockerfile for building the MariaDB image.
     container_name: mariadb # Name of the container.
+    image: mariadb
     env_file: .env # Load environment variables from a .env file.
     networks:
       - main_network # Connect the container to the custom network.
@@ -53,6 +55,7 @@ services:
   wordpress:
     build: requirements/wordpress/ # Path to the Dockerfile for building the WordPress image.
     container_name: wordpress # Name of the container.
+    image: wordpress
     env_file: .env # Load environment variables from a .env file.
     depends_on:
       - mariadb # Ensure MariaDB container starts before WordPress.
